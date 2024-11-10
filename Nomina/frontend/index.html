@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Salario</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div id="login-section">
+            <h2>Iniciar Sesión</h2>
+            <input type="email" id="correo" placeholder="Correo">
+            <input type="password" id="contrasena" placeholder="Contraseña">
+            <button onclick="iniciarSesion()">Iniciar Sesión</button>
+        </div>
+
+        <div id="empleados-section" class="hidden">
+            <h2>Seleccione un Empleado</h2>
+            <ul id="empleados-lista">
+                <li onclick="mostrarFormularioSalario(1)">Empleado 1</li>
+                <li onclick="mostrarFormularioSalario(2)">Empleado 2</li>
+                <li onclick="mostrarFormularioSalario(3)">Empleado 3</li>
+            </ul>
+        </div>
+
+        <div id="salario-section" class="hidden">
+            <h2>Asignar Salario</h2>
+            <span id="empleado-nombre"></span>
+            <input type="hidden" id="empleado-id">
+            <input type="number" id="salarioAsignado" placeholder="Salario a Asignar">
+            <button onclick="asignarSalario()">Asignar Salario</button>
+        </div>
+
+        <div id="calculadora-section" class="hidden">
+            <h2>Calculadora de Salario</h2>
+            <input type="number" id="salarioNeto" placeholder="Salario Neto" readonly>
+            <input type="number" id="horasExtra" placeholder="Horas Extra del Mes">
+            <button onclick="calcularSalario()">Calcular</button>
+
+            <div class="result-grid">
+                <div class="result-item">
+                    <strong>Valor por día:</strong>
+                    <span id="valorDia">0</span>
+                </div>
+                <div class="result-item">
+                    <strong>Valor por hora:</strong>
+                    <span id="valorHora">0</span>
+                </div>
+                <div class="result-item">
+                    <strong>Descuento Pensión (4%):</strong>
+                    <span id="descuentoPension">0</span>
+                </div>
+                <div class="result-item">
+                    <strong>Descuento Salud (4%):</strong>
+                    <span id="descuentoSalud">0</span>
+                </div>
+                <div class="result-item">
+                    <strong>Auxilio de Transporte:</strong>
+                    <span id="auxilioTransporte">0</span>
+                </div>
+                <div class="result-item">
+                    <strong>Valor Horas Extra:</strong>
+                    <span id="valorHorasExtra">0</span>
+                </div>
+                <div class="result-item">
+                    <strong>Primera Quincena:</strong>
+                    <span id="primeraQuincena">0</span>
+                </div>
+                <div class="result-item">
+                    <strong>Segunda Quincena:</strong>
+                    <span id="segundaQuincena">0</span>
+                </div>
+                <div class="result-item"style="grid-column: span 2; background-color: #3182ce; color: white;">
+                    <strong>Salario Bruto Final:</strong>
+                    <span id="salarioBruto">0</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
