@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculadora de Nómina Colombia 2026</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <!-- LOGIN -->
+    <div id="login-section">
+      <div class="header-icon">🏦</div>
+      <h1>Calculadora de Nómina</h1>
+      <p class="subtitle">Colombia · Valores oficiales 2026</p>
+      <div class="divider"></div>
+      <div class="form-group">
+        <label for="correo">Correo</label>
+        <input type="email" id="correo" placeholder="admin@example.com">
+      </div>
+      <div class="form-group">
+        <label for="contrasena">Contraseña</label>
+        <input type="password" id="contrasena" placeholder="••••••••">
+      </div>
+      <p class="hint">💡 Usuario: <strong>admin@example.com</strong> · Clave: <strong>admin123</strong></p>
+      <button onclick="iniciarSesion()">Ingresar</button>
+    </div>
+
+    <!-- EMPLEADOS -->
+    <div id="empleados-section" class="hidden">
+      <div class="header-icon">👥</div>
+      <h1>Seleccionar Empleado</h1>
+      <p class="subtitle">¿Para quién vas a calcular la nómina?</p>
+      <div class="divider"></div>
+      <ul id="empleados-lista">
+        <li onclick="mostrarFormularioSalario(1)">
+          <span class="emp-icon">👤</span>
+          <div><strong>Empleado 1</strong><span class="emp-tag">Activo</span></div>
+        </li>
+        <li onclick="mostrarFormularioSalario(2)">
+          <span class="emp-icon">👤</span>
+          <div><strong>Empleado 2</strong><span class="emp-tag">Activo</span></div>
+        </li>
+        <li onclick="mostrarFormularioSalario(3)">
+          <span class="emp-icon">👤</span>
+          <div><strong>Empleado 3</strong><span class="emp-tag">Activo</span></div>
+        </li>
+      </ul>
+      <button class="btn-outline" onclick="cerrarSesion()">← Cerrar sesión</button>
+    </div>
+
+    <!-- ASIGNAR SALARIO -->
+    <div id="salario-section" class="hidden">
+      <div class="header-icon">💰</div>
+      <h1>Asignar Salario</h1>
+      <p class="subtitle">Empleado: <strong id="empleado-nombre"></strong></p>
+      <div class="divider"></div>
+      <input type="hidden" id="empleado-id">
+      <div class="form-group">
+        <label for="salarioAsignado">Salario mensual (COP $)</label>
+        <input type="number" id="salarioAsignado" placeholder="Ej: 2500000">
+      </div>
+      <div class="info-box">
+        <span>📌</span>
+        <span>SMMLV 2026: <strong>$1.750.905</strong> · Aux. transporte: <strong>$249.095</strong></span>
+      </div>
+      <button onclick="asignarSalario()">Continuar →</button>
+      <button class="btn-outline" onclick="volverEmpleados()">← Volver</button>
+    </div>
+
+    <!-- CALCULADORA -->
+    <div id="calculadora-section" class="hidden">
+      <div class="header-icon">🧮</div>
+      <h1>Liquidación de Nómina</h1>
+      <p class="subtitle" id="subtitulo-calculadora"></p>
+      <div class="divider"></div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Salario base</label>
+          <input type="number" id="salarioNeto" readonly>
+        </div>
+        <div class="form-group">
+          <label>Horas extra del mes</label>
+          <input type="number" id="horasExtra" placeholder="0" min="0">
+        </div>
+      </div>
+
+      <button onclick="calcularSalario()">🧮 Calcular nómina</button>
+
+      <div id="resultado-panel" class="hidden">
+        <div class="divider"></div>
+        <h2 class="section-title">📊 Resultado</h2>
+
+        <div class="result-section">
+          <h3 class="result-label">Devengado</h3>
+          <div class="result-grid">
+            <div class="result-item">
+              <span>Valor por día</span>
+              <strong id="valorDia">$0</strong>
+            </div>
+            <div class="result-item">
+              <span>Valor por hora</span>
+              <strong id="valorHora">$0</strong>
+            </div>
+            <div class="result-item">
+              <span>Horas extra</span>
+              <strong id="valorHorasExtra">$0</strong>
+            </div>
+            <div class="result-item">
+              <span>Aux. transporte</span>
+              <strong id="auxilioTransporte">$0</strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="result-section">
+          <h3 class="result-label">Descuentos</h3>
+          <div class="result-grid">
+            <div class="result-item descuento">
+              <span>Pensión (4%)</span>
+              <strong id="descuentoPension">$0</strong>
+            </div>
+            <div class="result-item descuento">
+              <span>Salud (4%)</span>
+              <strong id="descuentoSalud">$0</strong>
+            </div>
+            <div class="result-item descuento">
+              <span>Retefuente</span>
+              <strong id="descuentoRetefuente">$0</strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="result-section">
+          <h3 class="result-label">Pago quincenal</h3>
+          <div class="result-grid">
+            <div class="result-item quincena">
+              <span>Primera quincena</span>
+              <strong id="primeraQuincena">$0</strong>
+            </div>
+            <div class="result-item quincena">
+              <span>Segunda quincena</span>
+              <strong id="segundaQuincena">$0</strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="result-total">
+          <span>💵 Salario Neto a Pagar</span>
+          <strong id="salarioBruto">$0</strong>
+        </div>
+
+        <div id="retefuente-detalle" class="info-box" style="margin-top:12px;"></div>
+      </div>
+
+      <button class="btn-outline" onclick="volverEmpleados()" style="margin-top:16px;">← Cambiar empleado</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
